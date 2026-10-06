@@ -3,48 +3,80 @@ format:
   revealjs:
     theme: themes/uu.scss
     logo: images/UU_logo_2021_EN_RGB.png
-    footer: "John Doe"
+    footer: "Jelle"
 ---
 
-# Presentation title {data-background-color="#FFCD00"}
+# Quarto: Scientific & Technical Publishing
 
-::: {.r-stack}
-Presentation subtitle
-:::
+**A publishing system for reproducible, multi-format documents**
 
-::: {.footer}
-:::
+*For Research Software Engineers*
 
-# {data-background-color="#FFCD00"}
+---
 
-:::::::::::::: {.columns}
+## What is Quarto?
 
-::: {.column width="40%"}
-
-::: {.subtitle}
-
-Title
-
-:::
-:::
-::: {.column width="60%"}
-![](images/image.jpg){fig-align="right" width="300"}
-:::
-::::::::::::::
-
-
-## Quarto
 ::: {.theme-section}
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+- **Open-source** publishing system by Posit (formerly RStudio)
+- Built on top of **Pandoc** — a universal document converter
+- Language-agnostic: works with **Python, R, Julia, and Observable JS**
+- Combines narrative text + executable code in a single `.qmd` or `.ipynb` file
+- Renders to **HTML, PDF, Word, PowerPoint, ePub, Reveal.js**, and more
+
+> Think of it as: "R Markdown for everyone, plus a project system and publishing pipeline."
+
 :::
 
-## Bullets
+---
+
+## Core Capabilities
+
 ::: {.theme-section}
-When you click the **Render** button a document will be generated that includes:
 
--   Content authored with markdown
--   Output from executable code
+| Feature | Details |
+|---------|---------|
+| **Multi-engine** | Knitr (R), Jupyter (Python/Julia), Observable JS |
+| **Scientific Markdown** | Equations, citations, cross-references, figure panels, callouts |
+| **Project system** | `_quarto.yml` config for books, websites, blogs, manuscripts |
+| **Multi-format output** | One source → PDF, HTML, Word, slides, dashboards |
+| **CI/CD ready** | CLI (`quarto render`, `quarto publish`) + GitHub Actions |
+| **Editor agnostic** | VS Code, RStudio/Positron, JupyterLab, any text editor |
+
 :::
+
+---
+
+## Academic Use Cases
+
+::: {.theme-section}
+
+- **Reproducible papers** — code + results + narrative in one document; journal-ready PDF via LaTeX or Typst
+- **Theses & dissertations** — book projects with chapters, cross-references, and consistent styling
+- **Manuscript projects** — treat Jupyter notebooks as part of the formal published record; MECA bundle export
+- **Citations & metadata** — native BibTeX/CSL support, ORCID, CRediT contributor roles
+- **Teaching materials** — course websites, interactive notebooks, and slide decks from the same source
+- **Preprints & repositories** — publish to Quarto Pub, GitHub Pages, or institutional repositories
+
+:::
+
+---
+
+## Software Development Use Cases
+
+::: {.theme-section}
+
+- **Documentation as code** — write API docs, tutorials, and internal wikis in Markdown with embedded examples
+- **Package documentation** — use Quarto + `nbdev` to generate Python/R package docs from notebooks
+- **Dashboards** — build data dashboards (static or interactive) for monitoring, reporting, or stakeholder communication
+- **Requirements & ADRs** — tools like `quarto-needs` enable requirements-as-code with traceability and CI gates
+- **Automated reporting** — parameterized reports from a single template (e.g., one notebook → many PDFs)
+- **Publishing pipelines** — deploy to Posit Connect, Confluence, Hugging Face, or any static site host
+
+:::
+
+---
+
 ## Line Highlighting
 ::: {.theme-section}
 
@@ -153,10 +185,312 @@ plot(cars)
 ::::
 ::: 
 
-
 ::: footer
 Learn more: [Multiple Columns](https://quarto.org/docs/presentations/revealjs/#multiple-columns)
 :::
+
+## CI/CD & Automation
+
+```yaml
+# Example GitHub Actions workflow
+name: Render Quarto
+on: [push, pull_request]
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: posit-dev/quarto-actions@v2
+        with:
+          render: "."
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"   
+```
+
+---
+
+```{=html}
+<style>
+    .cost-calculator {
+        margin: 1.5rem 0;
+        padding: 1.25rem;
+        border: 1px solid #b9d4de;
+        border-radius: 14px;
+        background: #f5fbfd;
+        box-shadow: 0 8px 24px rgba(26, 71, 102, 0.08);
+    }
+
+    .cost-calculator h3 {
+        margin-top: 0;
+        margin-bottom: 0.35rem;
+    }
+
+    .cost-calculator p {
+        margin-bottom: 1rem;
+    }
+
+    .cost-calculator .observablehq form {
+        margin-bottom: 0.9rem;
+    }
+
+    .cost-calculator .observablehq label {
+        display: inline-block;
+        min-width: 220px;
+        margin-right: 0.75rem;
+        font-weight: 600;
+        vertical-align: top;
+    }
+
+    .cost-calculator .observablehq input[type="range"],
+    .cost-calculator .observablehq select {
+        max-width: 100%;
+    }
+
+    .calculator-estimate {
+        display: inline-block;
+        margin: 0.5rem 0 1rem;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        background: #e0f2f8;
+        border: 1px solid #9dc7d6;
+        font-size: 1.05rem;
+    }
+
+    .calculator-note {
+        margin-top: -0.25rem;
+        color: #35586a;
+        font-size: 0.95rem;
+    }
+</style>
+```
+
+::: {.cost-calculator}
+### Workspace cost calculator
+
+Estimate the cost of a running workspace based on compute capacity, runtime, and included SSD storage.
+
+```{ojs}
+//| echo: false
+
+renderCostChart = ({
+    points,
+    selectedX,
+    selectedY,
+    xLabel,
+    yLabel = "Credits",
+    title,
+    xTickStep = 5
+}) => {
+    const width = 700;
+    const height = 360;
+    const margin = {top: 40, right: 24, bottom: 52, left: 72};
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+    const xMax = Math.max(...points.map((point) => point.x), 1);
+    const yMax = Math.max(...points.map((point) => point.y), 1);
+    const xScale = (value) => margin.left + (value / xMax) * innerWidth;
+    const yScale = (value) => margin.top + innerHeight - (value / yMax) * innerHeight;
+    const svgNs = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNs, "svg");
+
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", height);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", title);
+
+    const add = (name, attrs = {}, parent = svg) => {
+        const element = document.createElementNS(svgNs, name);
+        for (const [key, value] of Object.entries(attrs)) {
+            element.setAttribute(key, value);
+        }
+        parent.appendChild(element);
+        return element;
+    };
+
+    add("rect", {x: 0, y: 0, width, height, fill: "white"});
+
+    const yTicks = 5;
+    for (let index = 0; index <= yTicks; index += 1) {
+        const value = (yMax / yTicks) * index;
+        const y = yScale(value);
+        add("line", {
+            x1: margin.left,
+            y1: y,
+            x2: width - margin.right,
+            y2: y,
+            stroke: "#d0d0d0",
+            "stroke-width": 1
+        });
+        const label = add("text", {
+            x: margin.left - 10,
+            y: y + 4,
+            "text-anchor": "end",
+            "font-size": 12,
+            fill: "#333"
+        });
+        label.textContent = value.toFixed(0);
+    }
+
+    for (let value = 0; value <= xMax; value += xTickStep) {
+        const x = xScale(value);
+        add("line", {
+            x1: x,
+            y1: margin.top,
+            x2: x,
+            y2: height - margin.bottom,
+            stroke: "#ececec",
+            "stroke-width": 1
+        });
+        const label = add("text", {
+            x,
+            y: height - margin.bottom + 20,
+            "text-anchor": "middle",
+            "font-size": 12,
+            fill: "#333"
+        });
+        label.textContent = value.toString();
+    }
+
+    add("line", {
+        x1: margin.left,
+        y1: height - margin.bottom,
+        x2: width - margin.right,
+        y2: height - margin.bottom,
+        stroke: "#333",
+        "stroke-width": 1.5
+    });
+    add("line", {
+        x1: margin.left,
+        y1: margin.top,
+        x2: margin.left,
+        y2: height - margin.bottom,
+        stroke: "#333",
+        "stroke-width": 1.5
+    });
+
+    const pathData = points
+        .map((point, index) => `${index === 0 ? "M" : "L"} ${xScale(point.x)} ${yScale(point.y)}`)
+        .join(" ");
+    add("path", {
+        d: pathData,
+        fill: "none",
+        stroke: "#1f77b4",
+        "stroke-width": 2.5
+    });
+
+    const selectedXPos = xScale(selectedX);
+    const selectedYPos = yScale(selectedY);
+    add("line", {
+        x1: selectedXPos,
+        y1: height - margin.bottom,
+        x2: selectedXPos,
+        y2: selectedYPos,
+        stroke: "#d62728",
+        "stroke-width": 1.5,
+        "stroke-dasharray": "6 4"
+    });
+    add("line", {
+        x1: margin.left,
+        y1: selectedYPos,
+        x2: selectedXPos,
+        y2: selectedYPos,
+        stroke: "#d62728",
+        "stroke-width": 1.5,
+        "stroke-dasharray": "6 4"
+    });
+    add("circle", {
+        cx: selectedXPos,
+        cy: selectedYPos,
+        r: 4,
+        fill: "#d62728"
+    });
+
+    const titleLabel = add("text", {
+        x: width / 2,
+        y: 24,
+        "text-anchor": "middle",
+        "font-size": 16,
+        fill: "#111"
+    });
+    titleLabel.textContent = title;
+
+    const xAxisLabel = add("text", {
+        x: width / 2,
+        y: height - 12,
+        "text-anchor": "middle",
+        "font-size": 13,
+        fill: "#111"
+    });
+    xAxisLabel.textContent = xLabel;
+
+    const yAxisLabel = add("text", {
+        x: 18,
+        y: height / 2,
+        transform: `rotate(-90 18 ${height / 2})`,
+        "text-anchor": "middle",
+        "font-size": 13,
+        fill: "#111"
+    });
+    yAxisLabel.textContent = yLabel;
+
+    return svg;
+}
+
+ssdHourlyCost = 1.525 * 100 / (30 * 24)
+gpuHourlyCost = 21
+axisMaxWithMargin = (value) => value <= 15 ? 20 : Math.min(50, value + 5)
+```
+
+```{ojs}
+//| echo: false
+
+viewof computeDevice = Inputs.radio(["CPU", "GPU"], {
+    label: "Processing unit",
+    value: "CPU"
+})
+
+viewof computeCapacity = computeDevice === "CPU"
+    ? Inputs.range([1, 30], {label: "Number of CPU cores", value: 4, step: 1})
+    : Inputs.range([1, 4], {label: "Number of GPU devices", value: 1, step: 1})
+
+viewof computeTime = Inputs.range([1, 50], {
+    label: "Estimated time",
+    value: 12,
+    step: 1
+})
+
+viewof computeTimeUnit = Inputs.radio(["hours", "days"], {
+    label: "Time unit",
+    value: "hours"
+})
+
+computeMultiplier = computeTimeUnit === "days" ? 24 : 1
+computeRate = computeDevice === "CPU"
+    ? computeCapacity + ssdHourlyCost
+    : computeCapacity * gpuHourlyCost + ssdHourlyCost
+computeEstimate = computeTime * computeMultiplier * computeRate
+computeXMax = axisMaxWithMargin(computeTime)
+computePoints = Array.from({length: computeXMax + 1}, (_, value) => ({
+    x: value,
+    y: value * computeMultiplier * computeRate
+}))
+
+html`<div class="calculator-estimate"><strong>Estimated costs workspace*:</strong> ${computeEstimate.toFixed(1)} credits</div>`
+
+renderCostChart({
+    points: computePoints,
+    selectedX: computeTime,
+    selectedY: computeEstimate,
+    xLabel: `Time in number of ${computeTimeUnit}`,
+    title: "Cost of running a workspace",
+    xTickStep: computeXMax <= 20 ? 5 : 10
+})
+```
+
+## Shinylive: Shiny + WebAssembly
+
 
 # {data-background-color="#FFCD00"}
 
