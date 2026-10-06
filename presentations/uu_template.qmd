@@ -210,34 +210,39 @@ jobs:
 
 ---
 
+## Workspace cost calculator {.smaller .scrollable}
+
 ```{=html}
 <style>
     .cost-calculator {
-        margin: 1.5rem 0;
-        padding: 1.25rem;
+        margin: 0;
+        padding: 0.5rem 0.9rem;
         border: 1px solid #b9d4de;
         border-radius: 14px;
         background: #f5fbfd;
         box-shadow: 0 8px 24px rgba(26, 71, 102, 0.08);
+        font-size: 0.55em;
+        max-height: 620px;
+        overflow: hidden;
     }
 
     .cost-calculator h3 {
         margin-top: 0;
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.2rem;
     }
 
     .cost-calculator p {
-        margin-bottom: 1rem;
+        margin: 0 0 0.4rem;
     }
 
     .cost-calculator .observablehq form {
-        margin-bottom: 0.9rem;
+        margin: 0.15rem 0;
     }
 
     .cost-calculator .observablehq label {
         display: inline-block;
-        min-width: 220px;
-        margin-right: 0.75rem;
+        min-width: 160px;
+        margin-right: 0.5rem;
         font-weight: 600;
         vertical-align: top;
     }
@@ -245,6 +250,12 @@ jobs:
     .cost-calculator .observablehq input[type="range"],
     .cost-calculator .observablehq select {
         max-width: 100%;
+    }
+
+    .cost-calculator svg {
+        display: block;
+        margin: 0 auto;
+        max-height: 300px;
     }
 
     .calculator-estimate {
@@ -266,8 +277,6 @@ jobs:
 ```
 
 ::: {.cost-calculator}
-### Workspace cost calculator
-
 Estimate the cost of a running workspace based on compute capacity, runtime, and included SSD storage.
 
 ```{ojs}
@@ -296,7 +305,9 @@ renderCostChart = ({
 
     svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
     svg.setAttribute("width", "100%");
-    svg.setAttribute("height", height);
+    svg.style.height = "auto";
+    svg.style.maxHeight = "300px";
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
     svg.setAttribute("role", "img");
     svg.setAttribute("aria-label", title);
 
@@ -488,6 +499,10 @@ renderCostChart({
     xTickStep: computeXMax <= 20 ? 5 : 10
 })
 ```
+
+:::
+
+---
 
 ## Shinylive: Shiny + WebAssembly
 
