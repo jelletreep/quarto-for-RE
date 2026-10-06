@@ -16,7 +16,7 @@ format:
 
 ## What is Quarto?
 
-::: {.theme-section}
+::: {.theme-section-small}
 
 - **Open-source** publishing system by Posit (formerly RStudio)
 - Built on top of **Pandoc** — a universal document converter
@@ -30,7 +30,7 @@ format:
 
 ## Core Capabilities
 
-::: {.theme-section}
+::: {.theme-section-small}
 
 | Feature | Details |
 |---------|---------|
@@ -484,8 +484,6 @@ renderCostChart({
 :::
 
 ---
-
-## Shinylive: Shiny + WebAssembly
 
 
 # {data-background-color="#FFCD00"}
