@@ -24,8 +24,6 @@ format:
 - Combines narrative text + executable code in a single `.qmd` or `.ipynb` file
 - Renders to **HTML, PDF, Word, PowerPoint, ePub, Reveal.js**, and more
 
-> Think of it as: "R Markdown for everyone, plus a project system and publishing pipeline."
-
 :::
 
 ---
@@ -36,42 +34,25 @@ format:
 
 | Feature | Details |
 |---------|---------|
-| **Multi-engine** | Knitr (R), Jupyter (Python/Julia), Observable JS |
-| **Scientific Markdown** | Equations, citations, cross-references, figure panels, callouts |
-| **Project system** | `_quarto.yml` config for books, websites, blogs, manuscripts |
+| **Scientific writing** | Markdown, Equations, citations, cross-references, figure panels, callouts |
+| **Project configs** | `_quarto.yml` config for books, websites, blogs, manuscripts |
 | **Multi-format output** | One source → PDF, HTML, Word, slides, dashboards |
-| **CI/CD ready** | CLI (`quarto render`, `quarto publish`) + GitHub Actions |
+| **CI/CD ready** | CLI (`quarto render`, `quarto publish`) + GH Actions + GH Pages |
 | **Editor agnostic** | VS Code, RStudio/Positron, JupyterLab, any text editor |
 
 :::
 
 ---
 
-## Academic Use Cases
+## Use Cases
 
 ::: {.theme-section}
 
 - **Reproducible papers** — code + results + narrative in one document; journal-ready PDF via LaTeX or Typst
-- **Theses & dissertations** — book projects with chapters, cross-references, and consistent styling
-- **Manuscript projects** — treat Jupyter notebooks as part of the formal published record; MECA bundle export
-- **Citations & metadata** — native BibTeX/CSL support, ORCID, CRediT contributor roles
-- **Teaching materials** — course websites, interactive notebooks, and slide decks from the same source
-- **Preprints & repositories** — publish to Quarto Pub, GitHub Pages, or institutional repositories
-
-:::
-
----
-
-## Software Development Use Cases
-
-::: {.theme-section}
-
+- **Workshops** — book projects with chapters, cross-references, and consistent styling
 - **Documentation as code** — write API docs, tutorials, and internal wikis in Markdown with embedded examples
-- **Package documentation** — use Quarto + `nbdev` to generate Python/R package docs from notebooks
-- **Dashboards** — build data dashboards (static or interactive) for monitoring, reporting, or stakeholder communication
-- **Requirements & ADRs** — tools like `quarto-needs` enable requirements-as-code with traceability and CI gates
-- **Automated reporting** — parameterized reports from a single template (e.g., one notebook → many PDFs)
-- **Publishing pipelines** — deploy to Posit Connect, Confluence, Hugging Face, or any static site host
+- **Interactive elements** — data dashboards, selection tools, Shiny + webAssembly, ObservableJS
+- **Presentations** — html, themes, github pages
 
 :::
 
