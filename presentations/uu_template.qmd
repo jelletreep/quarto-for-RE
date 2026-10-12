@@ -6,11 +6,16 @@ format:
     footer: "Jelle"
 ---
 
-# Quarto: Scientific & Technical Publishing
+# Quarto {data-background-color="#FFCD00"}
 
-**A publishing system for reproducible, multi-format documents**
 
-*For Research Software Engineers*
+
+::: {.r-stack}
+**A publishing system for reproducible documents**
+:::
+
+::: {.footer}
+:::
 
 ---
 
@@ -34,11 +39,11 @@ format:
 
 | Feature | Details |
 |---------|---------|
-| **Scientific writing** | Markdown, Equations, citations, cross-references, figure panels, callouts |
-| **Project configs** | `_quarto.yml` config for books, websites, blogs, manuscripts |
-| **Multi-format output** | One source → PDF, HTML, Word, slides, dashboards |
-| **CI/CD ready** | CLI (`quarto render`, `quarto publish`) + GH Actions + GH Pages |
-| **Editor agnostic** | VS Code, RStudio/Positron, JupyterLab, any text editor |
+| **Scientific writing** | Markdown, Equations, citations, references, figure panels, callouts |
+| **Configs and themes** | configs for books, websites, blogs, manuscripts, stylesheets |
+| **Code execution** | notebooks, inline code, scripts |
+| **Interactive elements** | Observable JS, Shinylive + webAssembly |
+| **GitHub integration** | Versioning, GH Actions, GH Pages |
 
 :::
 
@@ -51,7 +56,7 @@ format:
 - **Reproducible papers** — code + results + narrative in one document; journal-ready PDF via LaTeX or Typst
 - **Workshops** — book projects with chapters, cross-references, and consistent styling
 - **Documentation as code** — write API docs, tutorials, and internal wikis in Markdown with embedded examples
-- **Interactive elements** — data dashboards, selection tools, Shiny + webAssembly, ObservableJS
+- **Dashboards** — data dashboards, selection tools, Shiny + webAssembly, ObservableJS
 - **Presentations** — html, themes, github pages
 
 :::
