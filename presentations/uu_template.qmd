@@ -41,7 +41,7 @@ format:
 |---------|---------|
 | **Scientific writing** | Markdown, Equations, citations, references, figure panels, callouts |
 | **Configs and themes** | configs for books, websites, blogs, manuscripts, stylesheets |
-| **Code execution** | notebooks, inline code, scripts |
+| **Code execution** | python, R, Julia, mermaid, html, dot |
 | **Interactive elements** | Observable JS, Shinylive + webAssembly |
 | **GitHub integration** | Versioning, GH Actions, GH Pages |
 
@@ -55,7 +55,7 @@ format:
 
 - **Reproducible papers** — code + results + narrative in one document; journal-ready PDF via LaTeX or Typst
 - **Workshops** — book projects with chapters, cross-references, and consistent styling
-- **Documentation as code** — write API docs, tutorials, and internal wikis in Markdown with embedded examples
+- **Documentation** — write API docs, tutorials, and internal wikis in Markdown with embedded examples
 - **Dashboards** — data dashboards, selection tools, Shiny + webAssembly, ObservableJS
 - **Presentations** — html, themes, github pages
 
@@ -489,7 +489,6 @@ renderCostChart({
 :::
 
 ---
-
 
 # {data-background-color="#FFCD00"}
 
